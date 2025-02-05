@@ -67,6 +67,27 @@ paths:
                 items:
                   $ref: "#/components/schemas/Mentor"
 
+  /mentor/{id}:
+    get:
+      summary: "Получить ментора по ID"
+      description: "Получить информацию о конкретном менторе по его идентификатору."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "Уникальный идентификатор ментора"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Ментор успешно найден."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mentor"
+        '404':
+          description: "Ментор с указанным ID не найден."
+
   /donate-link:
     get:
       summary: "Получить ссылку для пожертвований"
