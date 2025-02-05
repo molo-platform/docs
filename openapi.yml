@@ -129,12 +129,18 @@ components:
         bio:
           type: string
           description: "Краткая информация о менторе."
-        tags:
+        kidTags:
           type: array
-          description: "Категории специализации менторства"
+          description: "Категории особенностей ребенка, будет расширено."
           items:
             type: string
-            enum: ["kid-down", "kid-autism", "kid-other", "couple", "mother", "father"]
+            enum: ["kid-down", "kid-autism", "kid-other"]
+        partnershipTags:
+          type: array
+          description: "Семейное положение ментора."
+          items:
+            type: string
+            enum: ["couple", "mother", "father"]
         country:
           type: string
           description: "Страна проживания (ISO 3166-1 alpha-2)"
@@ -151,7 +157,8 @@ components:
       required:
         - name
         - email
-        - tags
+        - kidTags
+        - partnershipTags
         - country
         - kidAge
         - telegram
@@ -172,6 +179,10 @@ components:
               type: integer
               description: "Дней до следующего свободного слота. -2 если слотов нет. -1 если неизвестно."
               minimum: -1
+            photoUrl:
+              type: string
+              format: uri
+              description: "URL фотографии ментора."
       description: "Запись ментора."
 
     NewsletterSignup:
