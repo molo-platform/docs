@@ -149,7 +149,7 @@ components:
           type: integer
           description: "Возраст ребенка"
           minimum: 0
-          maximum: 18
+          maximum: 100
         telegram:
           type: string
           description: "Имя пользователя в Telegram без символа @"
@@ -157,11 +157,6 @@ components:
       required:
         - name
         - email
-        - kidTags
-        - partnershipTags
-        - country
-        - kidAge
-        - telegram
 
     Mentor:
       allOf:
