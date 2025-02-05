@@ -1,0 +1,186 @@
+openapi: "3.0.3"
+info:
+  title: "MOLO Web Application API"
+  version: "1.0.0"
+  description: >
+    Этот API предоставляет эндпоинты для проверки статуса регистрации менторов и подопечных,
+    создания и получения записей менторов.
+servers:
+  - url: "https://api.molo.by"
+    description: "Продакшн сервер"
+  - url: "https://dev.api.molo.by"
+    description: "Сервер разработки"
+
+paths:
+  /registration-status:
+    get:
+      summary: "Получить статус регистрации"
+      description: "Получить текущий статус регистрации для менторов и подопечных."
+      responses:
+        '200':
+          description: "Статус регистрации успешно получен."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mentors:
+                    type: boolean
+                    description: "Показывает, открыта ли регистрация менторов."
+                  mentees:
+                    type: boolean
+                    description: "Показывает, открыта ли регистрация подопечных."
+                example:
+                  mentors: true
+                  mentees: false
+
+  /mentors:
+    post:
+      summary: "Создать ментора"
+      description: "Зарегистрировать нового ментора."
+      requestBody:
+        description: "Данные ментора для создания новой записи."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MentorInput"
+      responses:
+        '201':
+          description: "Ментор успешно создан."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mentor"
+        '400':
+          description: "Предоставлены неверные данные ментора."
+    get:
+      summary: "Получить всех менторов"
+      description: "Получить список всех зарегистрированных менторов."
+      responses:
+        '200':
+          description: "Список менторов успешно получен."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Mentor"
+
+  /donate-link:
+    get:
+      summary: "Получить ссылку для пожертвований"
+      description: "Получить URL для пожертвований."
+      responses:
+        '200':
+          description: "Ссылка для пожертвований успешно получена."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                    description: "URL для пожертвований."
+                example:
+                  url: "https://donate.example.com"
+
+  /newsletter-signup:
+    post:
+      summary: "Подписка на рассылку"
+      description: "Подписаться на новостную рассылку."
+      requestBody:
+        description: "Email адрес для подписки на рассылку."
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewsletterSignup"
+      responses:
+        '200':
+          description: "Успешная подписка на рассылку."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: "Сообщение подтверждения."
+                example:
+                  message: "Subscription successful."
+        '400':
+          description: "Предоставлены неверные данные для подписки."
+
+components:
+  schemas:
+    MentorInput:
+      type: object
+      description: "Входные данные для создания ментора."
+      properties:
+        name:
+          type: string
+          description: "Полное имя ментора."
+        email:
+          type: string
+          format: email
+          description: "Email адрес ментора."
+        bio:
+          type: string
+          description: "Краткая информация о менторе."
+        tags:
+          type: array
+          description: "Категории специализации менторства"
+          items:
+            type: string
+            enum: ["kid-down", "kid-autism", "kid-other", "couple", "mother", "father"]
+        country:
+          type: string
+          description: "Страна проживания (ISO 3166-1 alpha-2)"
+          pattern: "^[A-Z]{2}$"
+        kidAge:
+          type: integer
+          description: "Возраст ребенка"
+          minimum: 0
+          maximum: 18
+        telegram:
+          type: string
+          description: "Имя пользователя в Telegram без символа @"
+          pattern: "^[a-zA-Z0-9_]{5,32}$"
+      required:
+        - name
+        - email
+        - tags
+        - country
+        - kidAge
+        - telegram
+
+    Mentor:
+      allOf:
+        - $ref: "#/components/schemas/MentorInput"
+        - type: object
+          properties:
+            id:
+              type: string
+              description: "Уникальный идентификатор ментора."
+            calendarUrl:
+              type: string
+              format: uri
+              description: "URL где подопечные могут записаться на встречу"
+            firstAvailableSlot:
+              type: integer
+              description: "Дней до следующего свободного слота. -2 если слотов нет. -1 если неизвестно."
+              minimum: -1
+      description: "Запись ментора."
+
+    NewsletterSignup:
+      type: object
+      description: "Входные данные для подписки на рассылку."
+      properties:
+        email:
+          type: string
+          format: email
+          description: "Email адрес для подписки."
+      required:
+        - email
