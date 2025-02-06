@@ -10,6 +10,8 @@ servers:
     description: "Продакшн сервер"
   - url: "https://dev.api.molo.by"
     description: "Сервер разработки"
+  - url: "https://kq61ohxxkg.execute-api.eu-central-1.amazonaws.com/Stage"
+    description: "Временный адрес для девелопмента"
 
 paths:
   /registration-status:
@@ -81,6 +83,40 @@ paths:
       responses:
         '200':
           description: "Ментор успешно найден."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mentor"
+        '404':
+          description: "Ментор с указанным ID не найден."
+
+  /mentor/{id}/status:
+    patch:
+      summary: "Обновить статус ментора"
+      description: "Изменить статус ментора на активный."
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "Уникальный идентификатор ментора"
+          schema:
+            type: string
+      requestBody:
+        description: "Новый статус ментора"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: ["active"]
+              required:
+                - status
+      responses:
+        '200':
+          description: "Статус ментора успешно обновлен."
           content:
             application/json:
               schema:
