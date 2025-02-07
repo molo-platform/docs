@@ -222,7 +222,7 @@ components:
           format: date
           description: "Дата рождения ментора"
           nullable: true
-        kidsBirthday:
+        kidBirthdate:
           type: string
           format: date
           description: "Дата рождения ребенка"
@@ -255,9 +255,9 @@ components:
               type: integer
               description: "Расчетный возраст ментора в годах (вычисляется на основе mentorBirthdate)"
               minimum: 0
-            kidAgeCalculated:
+            kidAge:
               type: integer
-              description: "Расчетный возраст ребенка в годах (вычисляется на основе kidsBirthday)"
+              description: "Расчетный возраст ребенка в годах (вычисляется на основе kidBirthdate)"
               minimum: 0
       description: "Запись ментора."
 
