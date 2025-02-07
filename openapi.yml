@@ -212,11 +212,6 @@ components:
           description: "Страна проживания (ISO 3166-1 alpha-2)"
           pattern: "^[A-Z]{2}$"
           nullable: true
-        kidAge:
-          type: integer
-          description: "Возраст ребенка"
-          minimum: 0
-          maximum: 100
         telegram:
           type: string
           description: "Имя пользователя в Telegram без символа @"
@@ -250,12 +245,20 @@ components:
               description: "URL где подопечные могут записаться на встречу"
             firstAvailableSlot:
               type: integer
-              description: "Дней до следующего свободного слота. -2 если слотов нет. -1 если неизвестно."
-              minimum: -1
+              description: "Currently always returns -1 (mocked). Will later show days until next available slot. -2 if no slots, -1 if unknown."
+              minimum: -2
             photoUrl:
               type: string
               format: uri
               description: "URL фотографии ментора."
+            mentorAge:
+              type: integer
+              description: "Расчетный возраст ментора в годах (вычисляется на основе mentorBirthdate)"
+              minimum: 0
+            kidAgeCalculated:
+              type: integer
+              description: "Расчетный возраст ребенка в годах (вычисляется на основе kidsBirthday)"
+              minimum: 0
       description: "Запись ментора."
 
     NewsletterSignup:
