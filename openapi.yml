@@ -229,6 +229,11 @@ components:
           description: "Дата рождения ребенка в формате YYYY-MM-DD"
           example: "2015-07-22"
           nullable: true
+        diagnosis:
+          type: string
+          description: "Диагноз ребенка"
+          maxLength: 500
+          nullable: true
       required:
         - name
         - email
