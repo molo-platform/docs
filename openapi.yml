@@ -194,22 +194,24 @@ components:
         bio:
           type: string
           description: "Краткая информация о менторе."
+          nullable: true
         kidTags:
           type: array
           description: "Категории особенностей ребенка, будет расширено."
+          nullable: true
           items:
             type: string
             enum: ["kid-down", "kid-autism", "kid-other"]
-        partnershipTags:
-          type: array
+        partnershipStatus:
+          type: string
           description: "Семейное положение ментора."
-          items:
-            type: string
-            enum: ["couple", "mother", "father"]
+          nullable: true
+          enum: ["couple", "mother", "father", "mother-alone", "father-alone"]
         country:
           type: string
           description: "Страна проживания (ISO 3166-1 alpha-2)"
           pattern: "^[A-Z]{2}$"
+          nullable: true
         kidAge:
           type: integer
           description: "Возраст ребенка"
@@ -219,6 +221,17 @@ components:
           type: string
           description: "Имя пользователя в Telegram без символа @"
           pattern: "^[a-zA-Z0-9_]{5,32}$"
+          nullable: true
+        mentorBirthdate:
+          type: string
+          format: date
+          description: "Дата рождения ментора"
+          nullable: true
+        kidsBirthday:
+          type: string
+          format: date
+          description: "Дата рождения ребенка"
+          nullable: true
       required:
         - name
         - email
