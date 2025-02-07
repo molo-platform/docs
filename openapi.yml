@@ -219,13 +219,15 @@ components:
           nullable: true
         mentorBirthdate:
           type: string
-          format: date
-          description: "Дата рождения ментора"
+          pattern: "^\d{4}-\d{2}-\d{2}$"
+          description: "Дата рождения ментора в формате YYYY-MM-DD"
+          example: "1985-03-15"
           nullable: true
         kidBirthdate:
           type: string
-          format: date
-          description: "Дата рождения ребенка"
+          pattern: "^\d{4}-\d{2}-\d{2}$"
+          description: "Дата рождения ребенка в формате YYYY-MM-DD"
+          example: "2015-07-22"
           nullable: true
       required:
         - name
@@ -255,10 +257,12 @@ components:
               type: integer
               description: "Расчетный возраст ментора в годах (вычисляется на основе mentorBirthdate)"
               minimum: 0
+              example: 38
             kidAge:
               type: integer
               description: "Расчетный возраст ребенка в годах (вычисляется на основе kidBirthdate)"
               minimum: 0
+              example: 8
       description: "Запись ментора."
 
     NewsletterSignup:
