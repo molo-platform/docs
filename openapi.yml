@@ -178,6 +178,46 @@ paths:
         '400':
           description: "Предоставлены неверные данные для подписки."
 
+  /mentees:
+    post:
+      summary: "Зарегистрировать подопечного"
+      description: "Создать новую запись подопечного с именем и email."
+      requestBody:
+        description: "Данные подопечного для регистрации."
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "Полное имя подопечного."
+                email:
+                  type: string
+                  format: email
+                  description: "Email адрес подопечного."
+              required:
+                - name
+                - email
+      responses:
+        '201':
+          description: "Подопечный успешно зарегистрирован."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: "Уникальный идентификатор подопечного."
+                  name:
+                    type: string
+                  email:
+                    type: string
+        '400':
+          description: "Неверные входные данные."
+
 components:
   schemas:
     MentorInput:
