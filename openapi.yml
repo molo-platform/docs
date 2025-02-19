@@ -272,9 +272,23 @@ components:
           description: "Диагноз ребенка"
           maxLength: 500
           nullable: true
+        policy:
+          type: boolean
+          description: "Согласие с политикой конфиденциальности"
+        terms:
+          type: boolean
+          description: "Согласие с условиями использования"
+        registeredAt:
+          type: string
+          format: date-time
+          description: "Дата и время регистрации в формате ISO 8601"
+          example: "2023-12-25T12:00:00Z"
       required:
         - name
         - email
+        - policy
+        - terms
+        - registeredAt
 
     Mentor:
       allOf:
