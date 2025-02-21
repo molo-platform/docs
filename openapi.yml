@@ -237,16 +237,45 @@ components:
           nullable: true
         kidTags:
           type: array
-          description: "Категории особенностей ребенка, будет расширено."
+          description: "Категории особенностей ребенка."
           nullable: true
           items:
             type: string
-            enum: ["kid-down", "kid-autism", "kid-other"]
+            enum: [
+              "kid-intellectual-disability",
+              "kid-learning-disorder",
+              "kid-deaf",
+              "kid-hard-of-hearing",
+              "kid-blind",
+              "kid-visual-impairment",
+              "kid-phenylketonuria",
+              "kid-batten-disease",
+              "kid-tay-sachs",
+              "kid-adhd",
+              "kid-speech-delay",
+              "kid-other",
+              "kid-down",
+              "kid-turner",
+              "kid-klinefelter",
+              "kid-williams",
+              "kid-rett",
+              "kid-angelman",
+              "kid-prader-willi",
+              "kid-cri-du-chat",
+              "kid-autism",
+              "kid-asperger",
+              "kid-pdd-nos",
+              "kid-cp",
+              "kid-epilepsy",
+              "kid-hydrocephalus",
+              "kid-microcephaly",
+              "kid-muscular-dystrophy"
+            ]
         partnershipStatus:
           type: string
           description: "Семейное положение ментора."
           nullable: true
-          enum: ["couple", "mother", "father", "mother-alone", "father-alone"]
+          enum: ["couple", "mother", "father", "mother-alone", "father-alone", "caregiver", "other"]
         country:
           type: string
           description: "Страна проживания (ISO 3166-1 alpha-2)"
